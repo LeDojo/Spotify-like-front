@@ -20,3 +20,16 @@ main {
   padding-left: 10px;
   padding-right: 10px;
 }
+
+.song {
+  display: flex;
+}
+
+.song button {
+  border: none;
+  background-color: transparent;
+}
+
+.songName {
+  flex-grow: 1;
+}

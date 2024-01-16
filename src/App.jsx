@@ -1,22 +1,12 @@
 import { useEffect, useState } from "react";
 import "./App.css";
+import Playlist from "./pages/Playlist";
+import { Link, Outlet } from "react-router-dom";
 
 function App() {
   const [playlists, setPlaylists] = useState([]);
-  const [songs, setSongs] = useState([]);
-  const [playlistTitle, setPlaylistTitle] = useState("All songs");
-  const [playlistId, setPlaylistId] = useState("");
 
-  const fetchPlaylist = (playlistId) => {
-    fetch(`http://localhost:4567/playlists/${playlistId}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setPlaylistId(data._id);
-        setPlaylistTitle(data.title);
-        setSongs(data.songs);
-      });
-  };
-
+  // Fetch all playlists
   useEffect(() => {
     fetch("http://localhost:4567/playlists/all")
       .then((res) => res.json())
@@ -29,26 +19,9 @@ function App() {
     fetch("http://localhost:4567/songs/all")
       .then((res) => res.json())
       .then((data) => {
-        setSongs(data);
+        // setSongs(data);
       });
   }, []);
-
-  const onPlaylistClick = (playlistId) => {
-    fetchPlaylist(playlistId);
-  };
-
-  const handleDeleteSongFromPlaylist = (songId) => {
-    fetch(
-      `http://localhost:4567/playlists/${playlistId}/delete-song/${songId}`,
-      {
-        method: "PUT",
-      }
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        fetchPlaylist(playlistId);
-      });
-  };
 
   return (
     <main>
@@ -64,38 +37,20 @@ function App() {
 
         <ul className="nav nav-pills flex-column mb-auto">
           {playlists.map((playlist) => (
-            <li
-              key={playlist._id}
-              onClick={() => {
-                onPlaylistClick(playlist._id);
-              }}
-            >
-              <a href="#" className="nav-link text-white">
+            <li key={playlist._id}>
+              <Link
+                to={`playlist/${playlist._id}`}
+                className="nav-link text-white"
+              >
                 {playlist.title}
-              </a>
+              </Link>
             </li>
           ))}
         </ul>
       </div>
 
       <div className="main-content">
-        <h1>{playlistTitle}</h1>
-        <ul className="list-group">
-          {songs.map((song) => (
-            <li key={song._id} className="list-group-item">
-              <div className="song">
-                <span className="songName">{song.title}</span>
-                <button
-                  onClick={() => {
-                    handleDeleteSongFromPlaylist(song._id);
-                  }}
-                >
-                  ❌
-                </button>
-              </div>
-            </li>
-          ))}
-        </ul>
+        <Outlet />
       </div>
     </main>
   );

@@ -11,7 +11,7 @@ function Playlist() {
   }, [playlistId]);
 
   const fetchPlaylist = (playlistId) => {
-    fetch(`http://localhost:4567/playlists/${playlistId}`)
+    fetch(`http://localhost:4000/playlists/${playlistId}`)
       .then((res) => res.json())
       .then((data) => {
         setPlaylistTitle(data.title);
@@ -21,7 +21,7 @@ function Playlist() {
 
   const handleDeleteSongFromPlaylist = (songId) => {
     fetch(
-      `http://localhost:4567/playlists/${playlistId}/delete-song/${songId}`,
+      `http://localhost:4000/playlists/${playlistId}/delete-song/${songId}`,
       {
         method: "PUT",
       }

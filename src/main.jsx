@@ -4,6 +4,8 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./bootstrap.min.css";
 import App from "./App";
 import Playlist from "./pages/Playlist";
+import HomePage from "./pages/HomePage";
+import NewPlaylist from "./pages/NewPlaylist";
 
 const router = createBrowserRouter([
   {
@@ -11,8 +13,16 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       {
+        path: "/",
+        element: <HomePage />,
+      },
+      {
         path: "playlist/:playlistId",
         element: <Playlist />,
+      },
+      {
+        path: "new-playlist",
+        element: <NewPlaylist />,
       },
     ],
   },

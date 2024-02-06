@@ -21,8 +21,17 @@ main {
   padding-right: 10px;
 }
 
+.list-group-item {
+  cursor: pointer;
+}
+
+.list-group-item:hover {
+  background-color: #f2f2f2;
+}
+
 .song {
   display: flex;
+  cursor: pointer;
 }
 
 .song button {
@@ -32,4 +41,8 @@ main {
 
 .songName {
   flex-grow: 1;
+}
+
+.playButton {
+  margin-right: 10px;
 }

@@ -26,43 +26,46 @@ const NewPlaylist = () => {
   };
 
   return (
-    <form onSubmit={createPlaylist}>
-      <div className="mb-3">
-        <label htmlFor="title" className="form-label">
-          Title
-        </label>
-        <input
-          type="text"
-          className="form-control"
-          id="title"
-          placeholder="My awesome playlist"
-          value={playlistName}
-          onChange={(e) => {
-            setPlaylistName(e.target.value);
-          }}
-        />
-      </div>
+    <div className="container">
+      <h1>New Playlist</h1>
+      <form onSubmit={createPlaylist}>
+        <div className="mb-3">
+          <label htmlFor="title" className="form-label">
+            Title
+          </label>
+          <input
+            type="text"
+            className="form-control"
+            id="title"
+            placeholder="My awesome playlist"
+            value={playlistName}
+            onChange={(e) => {
+              setPlaylistName(e.target.value);
+            }}
+          />
+        </div>
 
-      <div className="mb-3">
-        <label htmlFor="description" className="form-label">
-          Description
-        </label>
-        <input
-          type="text"
-          className="form-control"
-          id="description"
-          placeholder="My awesome playlist description"
-          value={playlistDescription}
-          onChange={(e) => {
-            setPlaylistDescription(e.target.value);
-          }}
-        />
-      </div>
+        <div className="mb-3">
+          <label htmlFor="description" className="form-label">
+            Description
+          </label>
+          <input
+            type="text"
+            className="form-control"
+            id="description"
+            placeholder="My awesome playlist description"
+            value={playlistDescription}
+            onChange={(e) => {
+              setPlaylistDescription(e.target.value);
+            }}
+          />
+        </div>
 
-      <button type="submit" className="btn btn-primary">
-        Create
-      </button>
-    </form>
+        <button type="submit" className="btn btn-primary">
+          Create
+        </button>
+      </form>
+    </div>
   );
 };
 

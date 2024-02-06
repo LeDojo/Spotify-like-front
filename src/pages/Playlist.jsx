@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import SongInPlaylist from "../components/SongInPlaylist";
 
 function Playlist() {
   const [playlistTitle, setPlaylistTitle] = useState("All songs");
@@ -27,31 +28,35 @@ function Playlist() {
       }
     )
       .then((res) => res.json())
-      .then((data) => {
+      .then(() => {
         fetchPlaylist(playlistId);
       });
   };
 
+  const handlePlaySong = (fileUrl) => {
+    if (fileUrl.substring(0, 4) !== "http") {
+      fileUrl = `http://localhost:4000/audio/${fileUrl}`;
+    }
+    const audio = new Audio(fileUrl);
+    audio.play();
+  };
+
   return (
-    <>
+    <div className="container">
       <h1>{playlistTitle}</h1>
       <ul className="list-group">
         {songs.map((song) => (
-          <li key={song._id} className="list-group-item">
-            <div className="song">
-              <span className="songName">{song.title}</span>
-              <button
-                onClick={() => {
-                  handleDeleteSongFromPlaylist(song._id);
-                }}
-              >
-                ❌
-              </button>
-            </div>
-          </li>
+          <SongInPlaylist
+            key={song._id}
+            id={song._id}
+            title={song.title}
+            fileUrl={song.fileUrl}
+            handleDeleteSongFromPlaylist={handleDeleteSongFromPlaylist}
+            handlePlaySong={handlePlaySong}
+          />
         ))}
       </ul>
-    </>
+    </div>
   );
 }
 

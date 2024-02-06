@@ -47,6 +47,11 @@ function App() {
               ✚ New Playlist
             </Link>
           </li>
+          <li>
+            <Link to="new-song" className="nav-link text-white">
+              ✚ New Song
+            </Link>
+          </li>
         </ul>
       </div>
 

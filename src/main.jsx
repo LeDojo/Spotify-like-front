@@ -6,6 +6,7 @@ import App from "./App";
 import Playlist from "./pages/Playlist";
 import HomePage from "./pages/HomePage";
 import NewPlaylist from "./pages/NewPlaylist";
+import NewSong from "./pages/NewSong";
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
       {
         path: "new-playlist",
         element: <NewPlaylist />,
+      },
+      {
+        path: "new-song",
+        element: <NewSong />,
       },
     ],
   },

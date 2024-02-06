@@ -7,6 +7,8 @@ import Playlist from "./pages/Playlist";
 import HomePage from "./pages/HomePage";
 import NewPlaylist from "./pages/NewPlaylist";
 import NewSong from "./pages/NewSong";
+import { AuthProvider } from "./AuthContext";
+import Login from "./pages/Login";
 
 const router = createBrowserRouter([
   {
@@ -16,6 +18,10 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <HomePage />,
+      },
+      {
+        path: "login",
+        element: <Login />,
       },
       {
         path: "playlist/:playlistId",
@@ -35,6 +41,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   </React.StrictMode>
 );

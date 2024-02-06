@@ -1,12 +1,19 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import "./App.css";
 import { Link, Outlet } from "react-router-dom";
+import { AuthContext } from "./AuthContext";
 
 function App() {
   const [playlists, setPlaylists] = useState([]);
+  const { isLoggedIn, token, logout } = useContext(AuthContext);
 
   const fetchPlaylists = () => {
-    fetch("http://localhost:4000/playlists/all")
+    fetch("http://localhost:4000/playlists/all", {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
         setPlaylists(data);
@@ -31,16 +38,17 @@ function App() {
         <hr />
 
         <ul className="nav nav-pills flex-column mb-auto">
-          {playlists.map((playlist) => (
-            <li key={playlist._id}>
-              <Link
-                to={`playlist/${playlist._id}`}
-                className="nav-link text-white"
-              >
-                {playlist.title}
-              </Link>
-            </li>
-          ))}
+          {!!isLoggedIn &&
+            playlists.map((playlist) => (
+              <li key={playlist._id}>
+                <Link
+                  to={`playlist/${playlist._id}`}
+                  className="nav-link text-white"
+                >
+                  {playlist.title}
+                </Link>
+              </li>
+            ))}
           <hr />
           <li>
             <Link to="new-playlist" className="nav-link text-white">
@@ -52,6 +60,20 @@ function App() {
               ✚ New Song
             </Link>
           </li>
+          <hr />
+          {isLoggedIn ? (
+            <li>
+              <span onClick={logout} className="nav-link text-white">
+                Logout
+              </span>
+            </li>
+          ) : (
+            <li>
+              <Link to="login" className="nav-link text-white">
+                Login
+              </Link>
+            </li>
+          )}
         </ul>
       </div>
 
